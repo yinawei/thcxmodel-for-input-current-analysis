@@ -1,0 +1,12 @@
+
+#!/bin/bash
+#A simple script to run the simulations
+
+echo "Start to run simulations......"
+for num in 0 1 2 3 4 5 6 7 8 9;do
+    cd rand_bio$num
+    make run
+    cd ..
+done
+echo "All simulations end!!!!!"
+

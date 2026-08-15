@@ -1,0 +1,17 @@
+.DS_Store
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Simulation-generated output
+Simulations/**/out/
+
+# Compiled simulation programs
+Simulations/**/mindcurrent
+Simulations/**/generate_network
+
+# Uncompressed copies of large figure data (compressed copies are tracked)
+plot_for_figures/data/*/time_cx
+
+# Generated manuscript figures
+plot_for_figures/figures/

@@ -1,0 +1,74 @@
+
+#!/bin/bash
+#A simple script to run the simulations
+
+echo "The script starts now."
+
+# Create TEMP directory if it doesn't exist
+if [ ! -d "rand_hardTEMP" ]; then
+    echo "Error: rand_hardTEMP directory not found!"
+    exit 1
+fi
+
+for num in 0 1 2 3 4 5 6 7 8 9; do
+    echo "Processing rand$num"
+    
+    # Create destination directory
+    mkdir -p rand_hard$num
+    
+    # Copy files with error checking
+    if [ -n "$(ls -A rand_hardTEMP/ 2>/dev/null)" ]; then
+        cp -r rand_hardTEMP/* rand_hard$num/ 2>/dev/null || {
+            # Alternative method if glob fails
+            find rand_hardTEMP/ -mindepth 1 -maxdepth 1 -exec cp -r {} rand_hard$num/ \;
+        }
+    else
+        echo "Warning: rand_hardTEMP/ is empty"
+    fi
+    
+    # Modify main.cpp if it exists
+    if [ -f "rand_hard$num/main.cpp" ]; then
+        cd rand_hard$num
+        sed -i "s/TEMP/${num}/g" main.cpp
+        cd ..
+    else
+        echo "Warning: main.cpp not found in rand_hard$num"
+    fi
+done
+
+#for num in 0 1 2 3 4 5 6 7 8 9; do
+#    echo "copy rand$num"
+#    mkdir -p rand_hard$num
+#    cp -r rand_hardTEMP/* rand_hard$num/
+#    cd rand_hard$num
+    #cat currents.h |sed s/'#define time2(a) (2)'/'#define time2(a) (RANDNUM)'/ >currents_temp.h
+#    sed -i s/TEMP/${num}/ main.cpp
+#done
+
+
+
+echo "The script ends now."
+
+
+#for qq in {1..10}; {qq}
+#mkdir S${qq}
+#matlab2014a -nosplash -nodisplado
+#cp  N66/params.txt N$y -r 'RunMat;  quit;';
+#cd ..
+##cp S30/* S${qq}
+
+#cd P${qq} 
+
+#mkdir S${qq}
+
+
+#rm *eps 
+#mkdir out
+#mkdir out
+#rm mindcurrent
+#rm -Rf temp
+#./phiing2 0
+#rm *.eps
+#cd ..
+#done
+
